@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <form-generator></form-generator>
-    </div>
+  <div>
+      form generator
+  </div>
 </template>
 
 <script>
