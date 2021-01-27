@@ -10,8 +10,11 @@
     "@babel/polyfill": "^7.4.4",
     "@fortawesome/fontawesome-free": "^5.8.2",
     "core-js": "^3.6.5",
+    "prismjs": "^1.23.0",
     "roboto-fontface": "*",
     "vue": "^2.6.11",
+    "vue-prism-editor": "^1.2.2",
+    "vue-split-panel": "^1.0.4",
     "vuetify": "^2.2.11"
   },
   "devDependencies": {

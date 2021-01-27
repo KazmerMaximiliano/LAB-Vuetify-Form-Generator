@@ -1,7 +1,11 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css';
 import es from 'vuetify/lib/locale/es';
+
+import '@babel/polyfill'
+import 'vuetify/dist/vuetify.min.css';
+import '@fortawesome/fontawesome-free/css/all.css'
+import 'roboto-fontface/css/roboto/roboto-fontface.css'
 
 Vue.use(Vuetify);
 
@@ -9,9 +13,9 @@ export default new Vuetify({
   theme: {
     themes: {
       light: {
-        primary: '#ee44aa',
-        secondary: '#424242',
-        accent: '#82B1FF',
+        primary: '#2196F3',
+        secondary: '#9C27B0',
+        accent: '#03A9F4',
         error: '#FF5252',
         info: '#2196F3',
         success: '#4CAF50',
