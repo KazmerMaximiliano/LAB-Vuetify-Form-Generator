@@ -16,17 +16,14 @@
                                     <v-tabs-items v-model="menuTabs">
                                         <v-tab-item>
                                             <form-generator ref="form_gen" :form="form" class="mt-6"></form-generator>
-                                            <v-row justify="center">
-                                                <v-btn color="primary" @click="setData()" class="my-3">Enviar</v-btn>
+                                            <v-row justify="space-around">
+                                                <v-btn color="error" @click="resetForm()" class="my-3">Reiniciar</v-btn>
+                                                <v-btn color="warning" @click="validateForm()" class="my-3">Validar</v-btn>
+                                                <v-btn color="success" @click="setData()" class="my-3">Enviar</v-btn>
                                             </v-row>
                                         </v-tab-item>
                                         <v-tab-item>
-                                            {
-                                                <div v-for="(field, i) in form.fields" :key="i" class="ml-4">
-                                                    {{ field.model }}:
-                                                    <span v-if="formData && formData[field.model]">{{ formData[field.model] }}</span>
-                                                </div>
-                                            }
+                                            {{ formData }}
                                             <v-divider class="my-2"></v-divider>
                                             <i>Presiona el botón "enviar" para obtener los datos</i>
                                         </v-tab-item>
@@ -37,10 +34,12 @@
                     </SplitArea>
                     <SplitArea :size="50">
                         <v-container>
-                            <v-card outlined min-height="90vh">
-                                <v-card-title>Editor</v-card-title>
-                                <v-divider></v-divider>
-                                <br>
+                            <div>
+                                <v-tabs hide-slider>
+                                    <v-tab active-class="tab-menu">Editor</v-tab>
+                                </v-tabs>
+                            </div>
+                            <v-card outlined min-height="90vh" class="form-card">
                                 <v-card-text>
                                     <v-btn 
                                         color="primary" 
@@ -80,26 +79,7 @@ export default {
     data: () => ({
         menuTabs: null,
         formData: null,
-        form: {
-            fields: [
-                {
-                    model: "name",
-                    label: "Nombre",
-                },
-                {
-                    model: "lastname",
-                    label: "Apellido",
-                },
-                {
-                    model: "dni",
-                    label: "DNI",
-                },
-                {
-                    model: "residence",
-                    label: "Dirección",
-                },
-            ]
-        },
+        form: {},
         disabledSave: true,
         code: `
 form: {
@@ -107,18 +87,75 @@ form: {
         {
             model: "name",
             label: "Nombre",
+            type: "text",
+            value: 'Jhon',
+            col: {cols: 12, md: 6},
+            rules: {
+                required: true,
+                min: 4,
+                max: 18
+            }
         },
         {
             model: "lastname",
             label: "Apellido",
+            type: "text",
+            value: 'Doe',
+            col: {cols: 12, md: 6},
+            rules: {
+                required: true,
+                min: 4,
+                max: 18
+            }
         },
         {
-            model: "dni",
-            label: "DNI",
+            model: "age",
+            label: "Edad",
+            type: "number",
+            col: {cols: 12, md: 6},
+            rules: {
+                required: true,
+                minN: 18,
+                maxN: 99
+            }
         },
         {
-            model: "residence",
-            label: "Dirección",
+            model: "phone",
+            label: "CEL | TEL",
+            type: "number",
+            col: {cols: 12, md: 6},
+            rules: {
+                min: 8,
+                maxN: 14
+            }
+        },
+        {
+            model: "mail",
+            label: "Correo Electronico",
+            type: "email",
+            rules: {
+                required: true
+            }
+        },
+        {
+            model: "password",
+            label: "Contraseña",
+            type: "password",
+            col: {cols: 12, md: 6},
+            rules: {
+                required: true,
+                min: 8
+            }
+        },
+        {
+            model: "confirmPassword",
+            label: "Confirmar Contraseña",
+            type: "password",
+            col: {cols: 12, md: 6},
+            rules: {
+                required: true,
+                cmin: 8
+            }
         },
     ]
 },
@@ -135,6 +172,10 @@ form: {
         PrismEditor
     },
 
+    mounted() {
+        this.saveCode();
+    },
+
     methods: {
         highlighter(code) {
             return highlight(code, languages.js);
@@ -144,6 +185,14 @@ form: {
             let stringToCode = eval(`({${this.code}})`);
             this.form = stringToCode.form;
             this.disabledSave = true;
+        },
+
+        resetForm() {
+            this.$refs.form_gen.reset();
+        },
+
+        validateForm() {
+            this.$refs.form_gen.validate();
         },
 
         setData() {

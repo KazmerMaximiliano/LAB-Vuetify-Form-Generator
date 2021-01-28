@@ -1,10 +1,13 @@
 export default {
     textFields: {
-        regular: false,
         solo: false,
+        soloInverted: false,
         filled: false,
         outlined: true,
-        dense: false,
-        shaped: false
+        shaped: false,
+        rounded: false,
+        dark: false,
+        backgroundColor: null,
+        color: 'primary'
     }
 }

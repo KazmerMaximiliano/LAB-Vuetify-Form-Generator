@@ -5,7 +5,8 @@ import vuetify from './plugins/vuetify';
 import VueSplit from 'vue-split-panel';
 Vue.use(VueSplit);
 
-import './components/FormGenerator/FormGenerator';
+import FormGenerator from './components/FormGenerator/FormGenerator';
+Vue.component('form-generator', FormGenerator);
 
 Vue.config.productionTip = false
 
